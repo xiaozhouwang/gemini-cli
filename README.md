@@ -46,7 +46,7 @@ If you need to use a specific model or require a higher request capacity, you ca
 2. Set it as an environment variable in your terminal. Replace `YOUR_API_KEY` with your generated key.
 
    ```bash
-   export GEMINI_API_KEY="YOUR_API_KEY"
+   export DEEPSEEK_API_KEY="YOUR_API_KEY"
    ```
 
 For other authentication methods, including Google Workspace accounts, see the [authentication](./docs/cli/authentication.md) guide.

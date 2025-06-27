@@ -231,10 +231,13 @@ The CLI automatically loads environment variables from an `.env` file. The loadi
 2.  If not found, it searches upwards in parent directories until it finds an `.env` file or reaches the project root (identified by a `.git` folder) or the home directory.
 3.  If still not found, it looks for `~/.env` (in the user's home directory).
 
-- **`GEMINI_API_KEY`** (Required):
-  - Your API key for the Gemini API.
-  - **Crucial for operation.** The CLI will not function without it.
+- **`DEEPSEEK_API_KEY`** (Required for DeepSeek):
+  - Your API key for the DeepSeek API.
+  - **Crucial for operation when using DeepSeek.**
   - Set this in your shell profile (e.g., `~/.bashrc`, `~/.zshrc`) or an `.env` file.
+- **`GEMINI_API_KEY`**:
+  - Your API key for the Gemini API.
+  - Set this in your shell profile or an `.env` file if you prefer to use Gemini.
 - **`GEMINI_MODEL`**:
   - Specifies the default Gemini model to use.
   - Overrides the hardcoded default

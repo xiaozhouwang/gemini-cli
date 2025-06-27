@@ -513,6 +513,9 @@ export async function start_sandbox(
   if (process.env.GEMINI_API_KEY) {
     args.push('--env', `GEMINI_API_KEY=${process.env.GEMINI_API_KEY}`);
   }
+  if (process.env.DEEPSEEK_API_KEY) {
+    args.push('--env', `DEEPSEEK_API_KEY=${process.env.DEEPSEEK_API_KEY}`);
+  }
   if (process.env.GOOGLE_API_KEY) {
     args.push('--env', `GOOGLE_API_KEY=${process.env.GOOGLE_API_KEY}`);
   }

@@ -20,17 +20,17 @@ The Gemini CLI requires you to authenticate with Google's AI services. On initia
         source ~/.bashrc
         ```
 
-2.  **<a id="gemini-api-key"></a>Gemini API key:**
+2.  **<a id="deepseek-api-key"></a>DeepSeek API key:**
 
-    - Obtain your API key from Google AI Studio: [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
-    - Set the `GEMINI_API_KEY` environment variable. In the following methods, replace `YOUR_GEMINI_API_KEY` with the API key you obtained from Google AI Studio:
+    - Obtain your API key from DeepSeek.
+    - Set the `DEEPSEEK_API_KEY` environment variable. In the following methods, replace `YOUR_DEEPSEEK_API_KEY` with the key you obtained:
       - You can temporarily set the environment variable in your current shell session using the following command:
         ```bash
-        export GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+        export DEEPSEEK_API_KEY="YOUR_DEEPSEEK_API_KEY"
         ```
       - For repeated use, you can add the environment variable to your `.env` file (located in the project directory or user home directory) or your shell's configuration file (like `~/.bashrc`, `~/.zshrc`, or `~/.profile`). For example, the following command adds the environment variable to a `~/.bashrc` file:
         ```bash
-        echo 'export GEMINI_API_KEY="YOUR_GEMINI_API_KEY"' >> ~/.bashrc
+        echo 'export DEEPSEEK_API_KEY="YOUR_DEEPSEEK_API_KEY"' >> ~/.bashrc
         source ~/.bashrc
         ```
 

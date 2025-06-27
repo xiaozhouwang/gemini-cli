@@ -13,6 +13,7 @@ import {
   EmbedContentParameters,
   GoogleGenAI,
 } from '@google/genai';
+import { DeepSeekContentGenerator } from './deepSeekGenerator.js';
 import { createCodeAssistContentGenerator } from '../code_assist/codeAssist.js';
 import { DEFAULT_GEMINI_MODEL } from '../config/models.js';
 import { getEffectiveModel } from './modelCheck.js';
@@ -38,6 +39,7 @@ export enum AuthType {
   LOGIN_WITH_GOOGLE_PERSONAL = 'oauth-personal',
   USE_GEMINI = 'gemini-api-key',
   USE_VERTEX_AI = 'vertex-ai',
+  USE_DEEPSEEK = 'deepseek-api-key',
 }
 
 export type ContentGeneratorConfig = {
@@ -53,6 +55,7 @@ export async function createContentGeneratorConfig(
   config?: { getModel?: () => string },
 ): Promise<ContentGeneratorConfig> {
   const geminiApiKey = process.env.GEMINI_API_KEY;
+  const deepseekApiKey = process.env.DEEPSEEK_API_KEY;
   const googleApiKey = process.env.GOOGLE_API_KEY;
   const googleCloudProject = process.env.GOOGLE_CLOUD_PROJECT;
   const googleCloudLocation = process.env.GOOGLE_CLOUD_LOCATION;
@@ -78,6 +81,11 @@ export async function createContentGeneratorConfig(
       contentGeneratorConfig.model,
     );
 
+    return contentGeneratorConfig;
+  }
+
+  if (authType === AuthType.USE_DEEPSEEK && deepseekApiKey) {
+    contentGeneratorConfig.apiKey = deepseekApiKey;
     return contentGeneratorConfig;
   }
 
@@ -124,6 +132,10 @@ export async function createContentGenerator(
     });
 
     return googleGenAI.models;
+  }
+
+  if (config.authType === AuthType.USE_DEEPSEEK) {
+    return new DeepSeekContentGenerator(config.apiKey ?? '', config.model);
   }
 
   throw new Error(

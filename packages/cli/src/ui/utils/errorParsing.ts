@@ -10,6 +10,8 @@ const RATE_LIMIT_ERROR_MESSAGE_GOOGLE =
   '\nPlease wait and try again later. To increase your limits, upgrade to a plan with higher limits, or use /auth to switch to using a paid API key from AI Studio at https://aistudio.google.com/apikey';
 const RATE_LIMIT_ERROR_MESSAGE_USE_GEMINI =
   '\nPlease wait and try again later. To increase your limits, request a quota increase through AI Studio, or switch to another /auth method';
+const RATE_LIMIT_ERROR_MESSAGE_USE_DEEPSEEK =
+  '\nPlease wait and try again later. If the issue persists, check your DeepSeek API usage or switch auth methods.';
 const RATE_LIMIT_ERROR_MESSAGE_VERTEX =
   '\nPlease wait and try again later. To increase your limits, request a quota increase through Vertex, or switch to another /auth method';
 const RATE_LIMIT_ERROR_MESSAGE_DEFAULT =
@@ -49,6 +51,8 @@ function getRateLimitMessage(authType?: AuthType): string {
       return RATE_LIMIT_ERROR_MESSAGE_GOOGLE;
     case AuthType.USE_GEMINI:
       return RATE_LIMIT_ERROR_MESSAGE_USE_GEMINI;
+    case AuthType.USE_DEEPSEEK:
+      return RATE_LIMIT_ERROR_MESSAGE_USE_DEEPSEEK;
     case AuthType.USE_VERTEX_AI:
       return RATE_LIMIT_ERROR_MESSAGE_VERTEX;
     default:
