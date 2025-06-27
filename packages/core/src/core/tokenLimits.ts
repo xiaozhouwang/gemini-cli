@@ -25,6 +25,8 @@ export function tokenLimit(model: Model): TokenCount {
       return 1_048_576;
     case 'gemini-2.0-flash-preview-image-generation':
       return 32_000;
+    case 'deepseek-chat':
+      return 131_072;
     default:
       return DEFAULT_TOKEN_LIMIT;
   }

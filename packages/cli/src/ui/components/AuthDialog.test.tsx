@@ -33,12 +33,12 @@ describe('AuthDialog', () => {
         onSelect={() => {}}
         onHighlight={() => {}}
         settings={settings}
-        initialErrorMessage="GEMINI_API_KEY  environment variable not found"
+        initialErrorMessage="DEEPSEEK_API_KEY  environment variable not found"
       />,
     );
 
     expect(lastFrame()).toContain(
-      'GEMINI_API_KEY  environment variable not found',
+      'DEEPSEEK_API_KEY  environment variable not found',
     );
   });
 
