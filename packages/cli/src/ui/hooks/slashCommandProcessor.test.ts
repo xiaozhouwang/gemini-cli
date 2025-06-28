@@ -67,7 +67,7 @@ import {
   MCPServerStatus,
   getMCPDiscoveryState,
   getMCPServerStatus,
-  GeminiClient,
+  DeepSeekClient,
 } from '@google/gemini-cli-core';
 import { useSessionStats } from '../contexts/SessionContext.js';
 import { LoadedSettings } from '../../config/settings.js';
@@ -100,7 +100,7 @@ describe('useSlashCommandProcessor', () => {
   let mockPerformMemoryRefresh: ReturnType<typeof vi.fn>;
   let mockSetQuittingMessages: ReturnType<typeof vi.fn>;
   let mockTryCompressChat: ReturnType<typeof vi.fn>;
-  let mockGeminiClient: GeminiClient;
+  let mockGeminiClient: DeepSeekClient;
   let mockConfig: Config;
   let mockCorgiMode: ReturnType<typeof vi.fn>;
   const mockUseSessionStats = useSessionStats as Mock;
@@ -120,7 +120,7 @@ describe('useSlashCommandProcessor', () => {
     mockTryCompressChat = vi.fn();
     mockGeminiClient = {
       tryCompressChat: mockTryCompressChat,
-    } as unknown as GeminiClient;
+    } as unknown as DeepSeekClient;
     mockConfig = {
       getDebugMode: vi.fn(() => false),
       getGeminiClient: () => mockGeminiClient,

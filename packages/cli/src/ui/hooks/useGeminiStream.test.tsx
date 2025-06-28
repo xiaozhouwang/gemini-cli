@@ -16,7 +16,7 @@ import {
   TrackedExecutingToolCall,
   TrackedCancelledToolCall,
 } from './useReactToolScheduler.js';
-import { Config, EditorType, AuthType } from '@google/gemini-cli-core';
+import { Config, EditorType, AuthType, DeepSeekClient } from '@google/gemini-cli-core';
 import { Part, PartListUnion } from '@google/genai';
 import { UseHistoryManagerReturn } from './useHistoryManager.js';
 import { HistoryItem, MessageType, StreamingState } from '../types.js';
@@ -29,7 +29,7 @@ const mockSendMessageStream = vi
   .mockReturnValue((async function* () {})());
 const mockStartChat = vi.fn();
 
-const MockedGeminiClientClass = vi.hoisted(() =>
+const MockedDeepSeekClientClass = vi.hoisted(() =>
   vi.fn().mockImplementation(function (this: any, _config: any) {
     // _config
     this.startChat = mockStartChat;
@@ -47,7 +47,7 @@ vi.mock('@google/gemini-cli-core', async (importOriginal) => {
   return {
     ...actualCoreModule,
     GitService: vi.fn(),
-    GeminiClient: MockedGeminiClientClass,
+    DeepSeekClient: MockedDeepSeekClientClass,
     UserPromptEvent: MockedUserPromptEvent,
   };
 });
@@ -261,9 +261,9 @@ describe('useGeminiStream', () => {
     mockSetShowHelp = vi.fn();
     // Define the mock for getGeminiClient
     const mockGetGeminiClient = vi.fn().mockImplementation(() => {
-      // MockedGeminiClientClass is defined in the module scope by the previous change.
+      // MockedDeepSeekClientClass is defined in the module scope by the previous change.
       // It will use the mockStartChat and mockSendMessageStream that are managed within beforeEach.
-      const clientInstance = new MockedGeminiClientClass(mockConfig);
+      const clientInstance = new MockedDeepSeekClientClass(mockConfig);
       return clientInstance;
     });
 
@@ -313,8 +313,8 @@ describe('useGeminiStream', () => {
       mockMarkToolsAsSubmitted,
     ]);
 
-    // Reset mocks for GeminiClient instance methods (startChat and sendMessageStream)
-    // The GeminiClient constructor itself is mocked at the module level.
+    // Reset mocks for DeepSeekClient instance methods (startChat and sendMessageStream)
+    // The DeepSeekClient constructor itself is mocked at the module level.
     mockStartChat.mockClear().mockResolvedValue({
       sendMessageStream: mockSendMessageStream,
     } as unknown as any); // GeminiChat -> any
@@ -504,7 +504,7 @@ describe('useGeminiStream', () => {
     ]);
     const { rerender } = renderHook(() =>
       useGeminiStream(
-        new MockedGeminiClientClass(mockConfig),
+        new MockedDeepSeekClientClass(mockConfig),
         [],
         mockAddItem,
         mockSetShowHelp,
@@ -559,7 +559,7 @@ describe('useGeminiStream', () => {
         responseSubmittedToGemini: false,
       } as TrackedCancelledToolCall,
     ];
-    const client = new MockedGeminiClientClass(mockConfig);
+    const client = new MockedDeepSeekClientClass(mockConfig);
 
     // 1. First render: no tool calls.
     mockUseReactToolScheduler.mockReturnValue([
@@ -938,7 +938,7 @@ describe('useGeminiStream', () => {
 
       const { result, rerender } = renderHook(() =>
         useGeminiStream(
-          new MockedGeminiClientClass(mockConfig),
+          new MockedDeepSeekClientClass(mockConfig),
           [],
           mockAddItem,
           mockSetShowHelp,
@@ -1015,7 +1015,7 @@ describe('useGeminiStream', () => {
 
       const { rerender } = renderHook(() =>
         useGeminiStream(
-          new MockedGeminiClientClass(mockConfig),
+          new MockedDeepSeekClientClass(mockConfig),
           [],
           mockAddItem,
           mockSetShowHelp,
@@ -1061,7 +1061,7 @@ describe('useGeminiStream', () => {
 
       const { result } = renderHook(() =>
         useGeminiStream(
-          new MockedGeminiClientClass(testConfig),
+          new MockedDeepSeekClientClass(testConfig),
           [],
           mockAddItem,
           mockSetShowHelp,

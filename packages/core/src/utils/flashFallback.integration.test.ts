@@ -115,7 +115,7 @@ describe('Flash Fallback Integration', () => {
           return status === 429;
         },
         onPersistent429: mockFallbackHandler,
-        authType: AuthType.USE_GEMINI, // API key auth type
+        authType: AuthType.USE_DEEPSEEK, // API key auth type
       });
     } catch (error) {
       // Expected to throw after max attempts

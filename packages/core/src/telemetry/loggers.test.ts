@@ -10,7 +10,7 @@ import {
   ContentGeneratorConfig,
   EditTool,
   ErroredToolCall,
-  GeminiClient,
+  DeepSeekClient,
   ToolConfirmationOutcome,
   ToolRegistry,
 } from '../index.js';
@@ -342,7 +342,7 @@ describe('loggers', () => {
       getUserMemory: () => 'user-memory',
     } as unknown as Config;
 
-    const mockGeminiClient = new GeminiClient(cfg2);
+    const mockGeminiClient = new DeepSeekClient(cfg2);
     const mockConfig = {
       getSessionId: () => 'test-session-id',
       getTargetDir: () => 'target-dir',

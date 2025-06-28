@@ -14,8 +14,8 @@ vi.mock('../utils/editCorrector.js', () => ({
   ensureCorrectEdit: mockEnsureCorrectEdit,
 }));
 
-vi.mock('../core/client.js', () => ({
-  GeminiClient: vi.fn().mockImplementation(() => ({
+vi.mock('../core/deepSeekClient.js', () => ({
+  DeepSeekClient: vi.fn().mockImplementation(() => ({
     generateJson: mockGenerateJson,
   })),
 }));
