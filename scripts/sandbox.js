@@ -41,7 +41,7 @@ if (argv.i && !process.stdin.isTTY) {
   process.exit(1);
 }
 
-const image = 'gemini-cli-sandbox';
+const image = 'deepseek-cli-sandbox';
 const sandboxCommand = execSync('node scripts/sandbox_command.js')
   .toString()
   .trim();
@@ -69,7 +69,7 @@ if (firstArg) {
 if (!sandboxName) {
   if (sandboxes.length === 0) {
     console.error(
-      'No sandboxes found. Are you running gemini-cli with sandboxing enabled?',
+      'No sandboxes found. Are you running deepseek-cli with sandboxing enabled?',
     );
     process.exit(1);
   }
