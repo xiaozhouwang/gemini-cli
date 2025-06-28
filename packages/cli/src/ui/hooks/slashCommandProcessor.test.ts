@@ -67,7 +67,7 @@ import {
   MCPServerStatus,
   getMCPDiscoveryState,
   getMCPServerStatus,
-  GeminiClient,
+  DeepSeekClient,
 } from '@google/gemini-cli-core';
 import { useSessionStats } from '../contexts/SessionContext.js';
 import { LoadedSettings } from '../../config/settings.js';
@@ -100,7 +100,7 @@ describe('useSlashCommandProcessor', () => {
   let mockPerformMemoryRefresh: ReturnType<typeof vi.fn>;
   let mockSetQuittingMessages: ReturnType<typeof vi.fn>;
   let mockTryCompressChat: ReturnType<typeof vi.fn>;
-  let mockGeminiClient: GeminiClient;
+  let mockDeepSeekClient: DeepSeekClient;
   let mockConfig: Config;
   let mockCorgiMode: ReturnType<typeof vi.fn>;
   const mockUseSessionStats = useSessionStats as Mock;
@@ -118,12 +118,12 @@ describe('useSlashCommandProcessor', () => {
     mockPerformMemoryRefresh = vi.fn().mockResolvedValue(undefined);
     mockSetQuittingMessages = vi.fn();
     mockTryCompressChat = vi.fn();
-    mockGeminiClient = {
+    mockDeepSeekClient = {
       tryCompressChat: mockTryCompressChat,
-    } as unknown as GeminiClient;
+    } as unknown as DeepSeekClient;
     mockConfig = {
       getDebugMode: vi.fn(() => false),
-      getGeminiClient: () => mockGeminiClient,
+      getDeepSeekClient: () => mockDeepSeekClient,
       getSandbox: vi.fn(() => 'test-sandbox'),
       getModel: vi.fn(() => 'test-model'),
       getProjectRoot: vi.fn(() => '/test/dir'),
@@ -351,7 +351,7 @@ describe('useSlashCommandProcessor', () => {
       const mockResetChat = vi.fn();
       mockConfig = {
         ...mockConfig,
-        getGeminiClient: () => ({
+        getDeepSeekClient: () => ({
           resetChat: mockResetChat,
         }),
       } as unknown as Config;
@@ -1181,7 +1181,7 @@ describe('useSlashCommandProcessor', () => {
         hook.rerender();
       });
       expect(hook.result.current.pendingHistoryItems).toEqual([]);
-      expect(mockGeminiClient.tryCompressChat).toHaveBeenCalledWith(true);
+      expect(mockDeepSeekClient.tryCompressChat).toHaveBeenCalledWith(true);
       expect(mockAddItem).toHaveBeenNthCalledWith(
         2,
         expect.objectContaining({

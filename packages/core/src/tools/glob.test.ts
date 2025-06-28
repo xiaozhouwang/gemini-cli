@@ -5,13 +5,22 @@
  */
 
 import { GlobTool, GlobToolParams, GlobPath, sortFileEntries } from './glob.js';
-import { partListUnionToString } from '../core/geminiRequest.js';
 import path from 'path';
 import fs from 'fs/promises';
 import os from 'os';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'; // Removed vi
 import { FileDiscoveryService } from '../services/fileDiscoveryService.js';
 import { Config } from '../config/config.js';
+
+function partListUnionToString(value: unknown): string {
+  if (typeof value === 'string') return value;
+  if (Array.isArray(value)) return value.map(partListUnionToString).join('');
+  if (value && typeof value === 'object' && 'text' in value) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (value as any).text ?? '';
+  }
+  return '';
+}
 
 describe('GlobTool', () => {
   let tempRootDir: string; // This will be the rootDirectory for the GlobTool instance

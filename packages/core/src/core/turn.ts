@@ -19,7 +19,7 @@ import {
 import { getResponseText } from '../utils/generateContentResponseUtilities.js';
 import { reportError } from '../utils/errorReporting.js';
 import { getErrorMessage } from '../utils/errors.js';
-import { GeminiChat } from './geminiChat.js';
+import { DeepSeekChat } from './deepSeekClient.js';
 import { UnauthorizedError, toFriendlyError } from '../utils/errors.js';
 
 // Define a structure for tools passed to the server
@@ -149,7 +149,7 @@ export class Turn {
   private debugResponses: GenerateContentResponse[];
   private lastUsageMetadata: GenerateContentResponseUsageMetadata | null = null;
 
-  constructor(private readonly chat: GeminiChat) {
+  constructor(private readonly chat: DeepSeekChat) {
     this.pendingToolCalls = [];
     this.debugResponses = [];
   }
