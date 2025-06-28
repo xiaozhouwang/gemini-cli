@@ -37,7 +37,7 @@ import {
   createContentGenerator,
 } from './contentGenerator.js';
 import { ProxyAgent, setGlobalDispatcher } from 'undici';
-import { DEFAULT_GEMINI_FLASH_MODEL } from '../config/models.js';
+const DEFAULT_GEMINI_FLASH_MODEL = 'gemini-2.5-flash';
 import { AuthType } from './contentGenerator.js';
 
 function isThinkingSupported(model: string) {

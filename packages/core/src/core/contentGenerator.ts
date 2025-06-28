@@ -15,7 +15,7 @@ import {
 } from '@google/genai';
 import { DeepSeekContentGenerator } from './deepSeekGenerator.js';
 import { createCodeAssistContentGenerator } from '../code_assist/codeAssist.js';
-import { DEFAULT_GEMINI_MODEL } from '../config/models.js';
+import { DEFAULT_DEEPSEEK_MODEL } from '../config/models.js';
 import { getEffectiveModel } from './modelCheck.js';
 
 /**
@@ -61,7 +61,7 @@ export async function createContentGeneratorConfig(
   const googleCloudLocation = process.env.GOOGLE_CLOUD_LOCATION;
 
   // Use runtime model from config if available, otherwise fallback to parameter or default
-  const effectiveModel = config?.getModel?.() || model || DEFAULT_GEMINI_MODEL;
+  const effectiveModel = config?.getModel?.() || model || DEFAULT_DEEPSEEK_MODEL;
 
   const contentGeneratorConfig: ContentGeneratorConfig = {
     model: effectiveModel,

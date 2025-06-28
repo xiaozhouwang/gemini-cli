@@ -14,8 +14,7 @@ import {
   getCurrentGeminiMdFilename,
   ApprovalMode,
   GEMINI_CONFIG_DIR as GEMINI_DIR,
-  DEFAULT_GEMINI_MODEL,
-  DEFAULT_GEMINI_EMBEDDING_MODEL,
+  DEFAULT_DEEPSEEK_MODEL,
   FileDiscoveryService,
   TelemetryTarget,
 } from '@google/gemini-cli-core';
@@ -61,7 +60,7 @@ async function parseArguments(): Promise<CliArgs> {
       alias: 'm',
       type: 'string',
       description: `Model`,
-      default: process.env.GEMINI_MODEL || DEFAULT_GEMINI_MODEL,
+      default: process.env.GEMINI_MODEL || DEFAULT_DEEPSEEK_MODEL,
     })
     .option('prompt', {
       alias: 'p',
@@ -199,7 +198,7 @@ export async function loadCliConfig(
 
   return new Config({
     sessionId,
-    embeddingModel: DEFAULT_GEMINI_EMBEDDING_MODEL,
+    embeddingModel: DEFAULT_DEEPSEEK_MODEL,
     sandbox: sandboxConfig,
     targetDir: process.cwd(),
     debugMode,
