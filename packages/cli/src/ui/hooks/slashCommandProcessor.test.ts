@@ -596,8 +596,8 @@ describe('useSlashCommandProcessor', () => {
       expect(commandResult).toBe(true);
     });
 
-    it('should display only Gemini CLI tools (filtering out MCP tools)', async () => {
-      // Create mock tools - some with serverName property (MCP tools) and some without (Gemini CLI tools)
+    it('should display only DeepSeek CLI tools (filtering out MCP tools)', async () => {
+      // Create mock tools - some with serverName property (MCP tools) and some without (DeepSeek CLI tools)
       const mockTools = [
         { name: 'tool1', displayName: 'Tool1' },
         { name: 'tool2', displayName: 'Tool2' },
@@ -625,7 +625,7 @@ describe('useSlashCommandProcessor', () => {
       expect(commandResult).toBe(true);
     });
 
-    it('should display a message when no Gemini CLI tools are available', async () => {
+    it('should display a message when no DeepSeek CLI tools are available', async () => {
       // Only MCP tools available
       const mockTools = [
         { name: 'mcp_tool1', serverName: 'mcp-server1' },
