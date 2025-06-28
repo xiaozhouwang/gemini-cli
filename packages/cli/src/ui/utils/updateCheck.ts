@@ -25,7 +25,7 @@ export async function checkForUpdates(): Promise<string | null> {
     });
 
     if (notifier.update) {
-      return `Gemini CLI update available! ${notifier.update.current} → ${notifier.update.latest}\nRun npm install -g ${packageJson.name} to update`;
+      return `DeepSeek CLI update available! ${notifier.update.current} → ${notifier.update.latest}\nRun npm install -g ${packageJson.name} to update`;
     }
 
     return null;

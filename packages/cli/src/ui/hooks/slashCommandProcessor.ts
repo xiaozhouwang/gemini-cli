@@ -201,7 +201,7 @@ export const useSlashCommandProcessor = (
       },
       {
         name: 'docs',
-        description: 'open full Gemini CLI documentation in your browser',
+        description: 'open full DeepSeek CLI documentation in your browser',
         action: async (_mainCommand, _subCommand, _args) => {
           const docsUrl = 'https://goo.gle/gemini-cli-docs';
           if (process.env.SANDBOX && process.env.SANDBOX !== 'sandbox-exec') {
@@ -503,7 +503,7 @@ export const useSlashCommandProcessor = (
       },
       {
         name: 'tools',
-        description: 'list available Gemini CLI tools',
+        description: 'list available DeepSeek CLI tools',
         action: async (_mainCommand, _subCommand, _args) => {
           // Check if the _subCommand includes a specific flag to control description visibility
           let useShowDescriptions = showToolDescriptions;
@@ -534,7 +534,7 @@ export const useSlashCommandProcessor = (
           // Filter out MCP tools by checking if they have a serverName property
           const geminiTools = tools.filter((tool) => !('serverName' in tool));
 
-          let message = 'Available Gemini CLI tools:\n\n';
+          let message = 'Available DeepSeek CLI tools:\n\n';
 
           if (geminiTools.length > 0) {
             geminiTools.forEach((tool) => {
