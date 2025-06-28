@@ -233,7 +233,6 @@ export class Config {
 
     // Always use the original default model when switching auth methods
     // This ensures users don't stay on Flash after switching between auth types
-    // and allows API key users to get proper fallback behavior from getEffectiveModel
     const modelToUse = this.model; // Use the original default model
 
     // Temporarily clear contentGeneratorConfig to prevent getModel() from returning
