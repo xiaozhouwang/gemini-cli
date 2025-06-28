@@ -15,8 +15,8 @@ let mockGenerateJson: any;
 let mockStartChat: any;
 let mockSendMessageStream: any;
 
-vi.mock('../core/client.js', () => ({
-  GeminiClient: vi.fn().mockImplementation(function (
+vi.mock('../core/deepSeekClient.js', () => ({
+  DeepSeekClient: vi.fn().mockImplementation(function (
     this: any,
     _config: Config,
   ) {
@@ -36,7 +36,7 @@ import {
   unescapeStringForGeminiBug,
   resetEditCorrectorCaches_TEST_ONLY,
 } from './editCorrector.js';
-import { GeminiClient } from '../core/client.js';
+import { DeepSeekClient } from '../core/deepSeekClient.js';
 import type { Config } from '../config/config.js';
 import { ToolRegistry } from '../tools/tool-registry.js';
 
@@ -145,7 +145,7 @@ describe('editCorrector', () => {
   });
 
   describe('ensureCorrectEdit', () => {
-    let mockGeminiClientInstance: Mocked<GeminiClient>;
+    let mockGeminiClientInstance: Mocked<DeepSeekClient>;
     let mockToolRegistry: Mocked<ToolRegistry>;
     let mockConfigInstance: Config;
     const abortSignal = new AbortController().signal;
@@ -219,9 +219,9 @@ describe('editCorrector', () => {
       mockStartChat = vi.fn();
       mockSendMessageStream = vi.fn();
 
-      mockGeminiClientInstance = new GeminiClient(
+      mockGeminiClientInstance = new DeepSeekClient(
         mockConfigInstance,
-      ) as Mocked<GeminiClient>;
+      ) as Mocked<DeepSeekClient>;
       resetEditCorrectorCaches_TEST_ONLY();
     });
 
@@ -515,7 +515,7 @@ describe('editCorrector', () => {
   });
 
   describe('ensureCorrectFileContent', () => {
-    let mockGeminiClientInstance: Mocked<GeminiClient>;
+    let mockGeminiClientInstance: Mocked<DeepSeekClient>;
     let mockToolRegistry: Mocked<ToolRegistry>;
     let mockConfigInstance: Config;
     const abortSignal = new AbortController().signal;
@@ -588,9 +588,9 @@ describe('editCorrector', () => {
       mockStartChat = vi.fn();
       mockSendMessageStream = vi.fn();
 
-      mockGeminiClientInstance = new GeminiClient(
+      mockGeminiClientInstance = new DeepSeekClient(
         mockConfigInstance,
-      ) as Mocked<GeminiClient>;
+      ) as Mocked<DeepSeekClient>;
       resetEditCorrectorCaches_TEST_ONLY();
     });
 

@@ -12,7 +12,7 @@ import {
   GenerateContentResponse,
   GoogleGenAI,
 } from '@google/genai';
-import { GeminiClient } from './client.js';
+import { DeepSeekClient } from './deepSeekClient.js';
 import { AuthType, ContentGenerator } from './contentGenerator.js';
 import { GeminiChat } from './geminiChat.js';
 import { Config } from '../config/config.js';
@@ -64,8 +64,8 @@ vi.mock('../telemetry/index.js', () => ({
   logApiError: vi.fn(),
 }));
 
-describe('Gemini Client (client.ts)', () => {
-  let client: GeminiClient;
+describe('DeepSeek Client (client.ts)', () => {
+  let client: DeepSeekClient;
   beforeEach(async () => {
     vi.resetAllMocks();
 
@@ -110,7 +110,7 @@ describe('Gemini Client (client.ts)', () => {
       model: 'test-model',
       apiKey: 'test-key',
       vertexai: false,
-      authType: AuthType.USE_GEMINI,
+      authType: AuthType.USE_DEEPSEEK,
     };
     MockedConfig.mockImplementation(() => {
       const mock = {
@@ -138,7 +138,7 @@ describe('Gemini Client (client.ts)', () => {
     // and the constructor will use the mocked GoogleGenAI
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const mockConfig = new Config({} as any);
-    client = new GeminiClient(mockConfig);
+    client = new DeepSeekClient(mockConfig);
     await client.initialize(contentGeneratorConfig);
   });
 

@@ -87,7 +87,7 @@ describe('parseAndFormatApiError', () => {
       },
     });
 
-    const result = parseAndFormatApiError(errorMessage, AuthType.USE_GEMINI);
+    const result = parseAndFormatApiError(errorMessage, AuthType.USE_DEEPSEEK);
     expect(result).toContain('Gemini 2.5 Pro Preview');
     expect(result).toContain(geminiMessage);
   });

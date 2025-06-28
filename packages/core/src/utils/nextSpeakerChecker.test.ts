@@ -6,13 +6,13 @@
 
 import { describe, it, expect, vi, beforeEach, Mock, afterEach } from 'vitest';
 import { Content, GoogleGenAI, Models } from '@google/genai';
-import { GeminiClient } from '../core/client.js';
+import { DeepSeekClient } from '../core/deepSeekClient.js';
 import { Config } from '../config/config.js';
 import { checkNextSpeaker, NextSpeakerResponse } from './nextSpeakerChecker.js';
 import { GeminiChat } from '../core/geminiChat.js';
 
-// Mock GeminiClient and Config constructor
-vi.mock('../core/client.js');
+// Mock DeepSeekClient and Config constructor
+vi.mock('../core/deepSeekClient.js');
 vi.mock('../config/config.js');
 
 // Define mocks for GoogleGenAI and Models instances that will be used across tests
@@ -42,7 +42,7 @@ vi.mock('@google/genai', async () => {
 
 describe('checkNextSpeaker', () => {
   let chatInstance: GeminiChat;
-  let mockGeminiClient: GeminiClient;
+  let mockGeminiClient: DeepSeekClient;
   let MockConfig: Mock;
   const abortSignal = new AbortController().signal;
 
@@ -61,7 +61,7 @@ describe('checkNextSpeaker', () => {
       undefined,
     );
 
-    mockGeminiClient = new GeminiClient(mockConfigInstance);
+    mockGeminiClient = new DeepSeekClient(mockConfigInstance);
 
     // Reset mocks before each test to ensure test isolation
     vi.mocked(mockModelsInstance.generateContent).mockReset();
