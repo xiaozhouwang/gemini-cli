@@ -417,7 +417,7 @@ describe('useSlashCommandProcessor', () => {
 *   **Memory Usage:** ${memoryUsage}
 `;
       let url =
-        'https://github.com/google-gemini/gemini-cli/issues/new?template=bug_report.yml';
+        'https://github.com/deepseek-ai/deepseek-cli/issues/new?template=bug_report.yml';
       if (description) {
         url += `&title=${encodeURIComponent(description)}`;
       }

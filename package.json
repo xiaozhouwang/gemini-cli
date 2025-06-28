@@ -1,5 +1,5 @@
 {
-  "name": "@google/gemini-cli",
+  "name": "@google/deepseek-cli",
   "version": "0.1.5",
   "engines": {
     "node": ">=18.0.0"
@@ -8,9 +8,9 @@
   "workspaces": [
     "packages/*"
   ],
-  "repository": "google-gemini/gemini-cli",
+  "repository": "deepseek-ai/deepseek-cli",
   "config": {
-    "sandboxImageUri": "us-docker.pkg.dev/gemini-code-dev/gemini-cli/sandbox:0.1.4"
+    "sandboxImageUri": "us-docker.pkg.dev/gemini-code-dev/deepseek-cli/sandbox:0.1.4"
   },
   "scripts": {
     "generate": "node scripts/generate-git-commit-info.js",
@@ -85,6 +85,6 @@
     "yargs": "^17.7.2"
   },
   "dependencies": {
-    "@google/gemini-cli": "^0.1.1"
+    "@google/deepseek-cli": "^0.1.1"
   }
 }

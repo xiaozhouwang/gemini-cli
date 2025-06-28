@@ -1,9 +1,9 @@
-# Makefile for gemini-cli
+# Makefile for deepseek-cli
 
 .PHONY: help install build build-sandbox build-all test lint format preflight clean start debug release run-npx create-alias
 
 help:
-	@echo "Makefile for gemini-cli"
+	@echo "Makefile for deepseek-cli"
 	@echo ""
 	@echo "Usage:"
 	@echo "  make install          - Install npm dependencies"
@@ -58,7 +58,7 @@ release:
 	npm run publish:release
 
 run-npx:
-	npx https://github.com/google-gemini/gemini-cli
+	npx https://github.com/deepseek-ai/deepseek-cli
 
 create-alias:
 	scripts/create_alias.sh

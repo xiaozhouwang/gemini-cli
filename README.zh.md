@@ -18,7 +18,7 @@ Gemini CLI 是一个命令行 AI 工作流工具，能够链接您的工具，�
 2. **运行 CLI：** 在终端中执行：
 
    ```bash
-   npx https://github.com/google-gemini/gemini-cli
+   npx https://github.com/deepseek-ai/deepseek-cli
    ```
 
    或使用以下命令安装：
@@ -61,7 +61,7 @@ gemini
 或与现有项目配合：
 
 ```sh
-git clone https://github.com/google-gemini/gemini-cli
+git clone https://github.com/deepseek-ai/deepseek-cli
 cd gemini-cli
 gemini
 > Give me a summary of all of the changes that went in yesterday
