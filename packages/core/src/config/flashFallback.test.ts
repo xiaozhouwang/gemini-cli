@@ -6,7 +6,9 @@
 
 import { describe, it, expect, beforeEach } from 'vitest';
 import { Config } from './config.js';
-import { DEFAULT_GEMINI_MODEL, DEFAULT_GEMINI_FLASH_MODEL } from './models.js';
+
+const DEFAULT_GEMINI_MODEL = 'gemini-2.5-pro';
+const DEFAULT_GEMINI_FLASH_MODEL = 'gemini-2.5-flash';
 
 describe('Flash Model Fallback Configuration', () => {
   let config: Config;

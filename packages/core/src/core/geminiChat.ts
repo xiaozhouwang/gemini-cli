@@ -34,7 +34,7 @@ import {
   ApiRequestEvent,
   ApiResponseEvent,
 } from '../telemetry/types.js';
-import { DEFAULT_GEMINI_FLASH_MODEL } from '../config/models.js';
+const DEFAULT_GEMINI_FLASH_MODEL = 'gemini-2.5-flash';
 
 /**
  * Returns true if the response is valid, false otherwise.
