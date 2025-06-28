@@ -6,13 +6,13 @@
 
 import { describe, it, expect, vi, beforeEach, Mock, afterEach } from 'vitest';
 import { Content, GoogleGenAI, Models } from '@google/genai';
-import { GeminiClient } from '../core/client.js';
+import { DeepSeekClient } from '../core/deepSeekClient.js';
 import { Config } from '../config/config.js';
 import { checkNextSpeaker, NextSpeakerResponse } from './nextSpeakerChecker.js';
 import { GeminiChat } from '../core/geminiChat.js';
 
-// Mock GeminiClient and Config constructor
-vi.mock('../core/client.js');
+// Mock DeepSeekClient and Config constructor
+vi.mock('../core/deepSeekClient.js');
 vi.mock('../config/config.js');
 
 // Define mocks for GoogleGenAI and Models instances that will be used across tests
@@ -42,7 +42,7 @@ vi.mock('@google/genai', async () => {
 
 describe('checkNextSpeaker', () => {
   let chatInstance: GeminiChat;
-  let mockGeminiClient: GeminiClient;
+  let mockDeepSeekClient: DeepSeekClient;
   let MockConfig: Mock;
   const abortSignal = new AbortController().signal;
 
@@ -61,7 +61,7 @@ describe('checkNextSpeaker', () => {
       undefined,
     );
 
-    mockGeminiClient = new GeminiClient(mockConfigInstance);
+    mockDeepSeekClient = new DeepSeekClient(mockConfigInstance);
 
     // Reset mocks before each test to ensure test isolation
     vi.mocked(mockModelsInstance.generateContent).mockReset();
@@ -87,11 +87,11 @@ describe('checkNextSpeaker', () => {
     (chatInstance.getHistory as Mock).mockReturnValue([]);
     const result = await checkNextSpeaker(
       chatInstance,
-      mockGeminiClient,
+      mockDeepSeekClient,
       abortSignal,
     );
     expect(result).toBeNull();
-    expect(mockGeminiClient.generateJson).not.toHaveBeenCalled();
+    expect(mockDeepSeekClient.generateJson).not.toHaveBeenCalled();
   });
 
   it('should return null if the last speaker was the user', async () => {
@@ -100,11 +100,11 @@ describe('checkNextSpeaker', () => {
     ] as Content[]);
     const result = await checkNextSpeaker(
       chatInstance,
-      mockGeminiClient,
+      mockDeepSeekClient,
       abortSignal,
     );
     expect(result).toBeNull();
-    expect(mockGeminiClient.generateJson).not.toHaveBeenCalled();
+    expect(mockDeepSeekClient.generateJson).not.toHaveBeenCalled();
   });
 
   it("should return { next_speaker: 'model' } when model intends to continue", async () => {
@@ -115,15 +115,15 @@ describe('checkNextSpeaker', () => {
       reasoning: 'Model stated it will do something.',
       next_speaker: 'model',
     };
-    (mockGeminiClient.generateJson as Mock).mockResolvedValue(mockApiResponse);
+    (mockDeepSeekClient.generateJson as Mock).mockResolvedValue(mockApiResponse);
 
     const result = await checkNextSpeaker(
       chatInstance,
-      mockGeminiClient,
+      mockDeepSeekClient,
       abortSignal,
     );
     expect(result).toEqual(mockApiResponse);
-    expect(mockGeminiClient.generateJson).toHaveBeenCalledTimes(1);
+    expect(mockDeepSeekClient.generateJson).toHaveBeenCalledTimes(1);
   });
 
   it("should return { next_speaker: 'user' } when model asks a question", async () => {
@@ -134,11 +134,11 @@ describe('checkNextSpeaker', () => {
       reasoning: 'Model asked a question.',
       next_speaker: 'user',
     };
-    (mockGeminiClient.generateJson as Mock).mockResolvedValue(mockApiResponse);
+    (mockDeepSeekClient.generateJson as Mock).mockResolvedValue(mockApiResponse);
 
     const result = await checkNextSpeaker(
       chatInstance,
-      mockGeminiClient,
+      mockDeepSeekClient,
       abortSignal,
     );
     expect(result).toEqual(mockApiResponse);
@@ -152,11 +152,11 @@ describe('checkNextSpeaker', () => {
       reasoning: 'Model made a statement, awaiting user input.',
       next_speaker: 'user',
     };
-    (mockGeminiClient.generateJson as Mock).mockResolvedValue(mockApiResponse);
+    (mockDeepSeekClient.generateJson as Mock).mockResolvedValue(mockApiResponse);
 
     const result = await checkNextSpeaker(
       chatInstance,
-      mockGeminiClient,
+      mockDeepSeekClient,
       abortSignal,
     );
     expect(result).toEqual(mockApiResponse);
@@ -169,13 +169,13 @@ describe('checkNextSpeaker', () => {
     (chatInstance.getHistory as Mock).mockReturnValue([
       { role: 'model', parts: [{ text: 'Some model output.' }] },
     ] as Content[]);
-    (mockGeminiClient.generateJson as Mock).mockRejectedValue(
+    (mockDeepSeekClient.generateJson as Mock).mockRejectedValue(
       new Error('API Error'),
     );
 
     const result = await checkNextSpeaker(
       chatInstance,
-      mockGeminiClient,
+      mockDeepSeekClient,
       abortSignal,
     );
     expect(result).toBeNull();
@@ -186,13 +186,13 @@ describe('checkNextSpeaker', () => {
     (chatInstance.getHistory as Mock).mockReturnValue([
       { role: 'model', parts: [{ text: 'Some model output.' }] },
     ] as Content[]);
-    (mockGeminiClient.generateJson as Mock).mockResolvedValue({
+    (mockDeepSeekClient.generateJson as Mock).mockResolvedValue({
       reasoning: 'This is incomplete.',
     } as unknown as NextSpeakerResponse); // Type assertion to simulate invalid response
 
     const result = await checkNextSpeaker(
       chatInstance,
-      mockGeminiClient,
+      mockDeepSeekClient,
       abortSignal,
     );
     expect(result).toBeNull();
@@ -202,14 +202,14 @@ describe('checkNextSpeaker', () => {
     (chatInstance.getHistory as Mock).mockReturnValue([
       { role: 'model', parts: [{ text: 'Some model output.' }] },
     ] as Content[]);
-    (mockGeminiClient.generateJson as Mock).mockResolvedValue({
+    (mockDeepSeekClient.generateJson as Mock).mockResolvedValue({
       reasoning: 'Model made a statement, awaiting user input.',
       next_speaker: 123, // Invalid type
     } as unknown as NextSpeakerResponse);
 
     const result = await checkNextSpeaker(
       chatInstance,
-      mockGeminiClient,
+      mockDeepSeekClient,
       abortSignal,
     );
     expect(result).toBeNull();
@@ -219,14 +219,14 @@ describe('checkNextSpeaker', () => {
     (chatInstance.getHistory as Mock).mockReturnValue([
       { role: 'model', parts: [{ text: 'Some model output.' }] },
     ] as Content[]);
-    (mockGeminiClient.generateJson as Mock).mockResolvedValue({
+    (mockDeepSeekClient.generateJson as Mock).mockResolvedValue({
       reasoning: 'Model made a statement, awaiting user input.',
       next_speaker: 'neither', // Invalid enum value
     } as unknown as NextSpeakerResponse);
 
     const result = await checkNextSpeaker(
       chatInstance,
-      mockGeminiClient,
+      mockDeepSeekClient,
       abortSignal,
     );
     expect(result).toBeNull();

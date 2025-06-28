@@ -23,7 +23,7 @@ import {
   ensureCorrectEdit,
   ensureCorrectFileContent,
 } from '../utils/editCorrector.js';
-import { GeminiClient } from '../core/client.js';
+import { DeepSeekClient } from '../core/deepSeekClient.js';
 import { DEFAULT_DIFF_OPTIONS } from './diffOptions.js';
 import { ModifiableTool, ModifyContext } from './modifiable-tool.js';
 import { getSpecificMimeType } from '../utils/fileUtils.js';
@@ -62,7 +62,7 @@ export class WriteFileTool
   implements ModifiableTool<WriteFileToolParams>
 {
   static readonly Name: string = 'write_file';
-  private readonly client: GeminiClient;
+  private readonly client: DeepSeekClient;
 
   constructor(private readonly config: Config) {
     super(
@@ -86,7 +86,7 @@ export class WriteFileTool
       },
     );
 
-    this.client = this.config.getGeminiClient();
+    this.client = this.config.getDeepSeekClient();
   }
 
   private isWithinRoot(pathToCheck: string): boolean {
